@@ -7,6 +7,7 @@ function Car(image, positionX, positionY, width, height, speedX, scenery, charac
     this.speedX = speedX;
     this.scenery = scenery;
     this.character = character;
+    this.sound = loadSound("assets/sounds/colidiu.mp3");
 
     this.rightFace = this.positionX + this.width;
     this.leftFace = this.positionX;
@@ -30,7 +31,9 @@ Car.prototype.checkEndScreen = function(){
 Car.prototype.checkColisao = function(){
     if (this.upperFace < this.character.bottomFace && this.bottomFace > this.character.upperFace ){
         if (this.leftFace <= this.character.rightFace && this.rightFace >= this.character.leftFace){
+            this.character.score.removePoint();
             this.character.restart();
+            this.sound.play();
         }
     }
 }

@@ -1,4 +1,4 @@
-function Character(image,positionX,positionY,width,height,speedY,scenery){
+function Character(image,positionX,positionY,width,height,speedY,scenery,score){
     this.character = loadImage(image);
     this.positionX = positionX;
     this.positionY = positionY;
@@ -6,6 +6,7 @@ function Character(image,positionX,positionY,width,height,speedY,scenery){
     this.height = height;
     this.speedY = speedY;
     this.scenery = scenery;
+    this.score = score;
 
     this.rightFace = this.positionX + this.width;
     this.leftFace = this.positionX;
@@ -42,6 +43,7 @@ Character.prototype.controls = function(){
     }
     this.positionUpdate();
     this.checkEndScreen();
+    this.checkScore();
 }
 
 Character.prototype.start = function(){
@@ -51,4 +53,11 @@ Character.prototype.start = function(){
 
 Character.prototype.restart = function(){
     this.positionY = this.scenery.screenHeight - this.height;
+}
+
+Character.prototype.checkScore = function(){
+    if (this.upperFace < 20){
+        this.score.scorePoint();
+        this.restart();
+    }
 }
